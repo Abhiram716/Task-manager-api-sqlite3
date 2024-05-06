@@ -9,12 +9,16 @@ const createTask = async (req, res) => {
     }
 
     // To check wheather if there is user with assigned Id
-    let assignedUser = await Users.findByPk(assignee_id);
-    if (!assignedUser) {
-      return res
-        .status(404)
-        .json({ error: `There is no user with id ${assignee_id}` });
+    let assignedUser = null;
+    if (assignee_id) {
+      assignedUser = await Users.findByPk(assignee_id);
+      if (!assignedUser) {
+        return res
+          .status(404)
+          .json({ error: `There is no user with id ${assignee_id}` });
+      }
     }
+
     const newTask = await Tasks.create({
       title,
       description,
@@ -39,7 +43,7 @@ const getAllTasks = async (req, res) => {
     res.status(200).json({ msg: "Tasks fetched succesfully", tasksList });
   } catch (error) {
     console.error("Error Fetching tasks:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: error.message });
   }
 };
 
@@ -57,7 +61,7 @@ const getTaskById = async (req, res) => {
       .json({ message: "Task fetched successfully", Task: task });
   } catch (error) {
     console.error("Error Fetching tasks:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: error.message });
   }
 };
 
@@ -80,8 +84,8 @@ const deleteTaskById = async (req, res) => {
       .status(200)
       .json({ msg: `task with id ${id} deleted succesfully` });
   } catch (error) {
-    console.error("Error Fetching tasks:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    console.error("Error Deleting tasks:", error);
+    res.status(500).json({ error: error.message });
   }
 };
 
@@ -102,11 +106,12 @@ const updateTaskById = async (req, res) => {
       assignee_id: assignee_id || task.assignee_id,
     });
 
-    res.status(200).json({msg:`Task with Id ${id} is updated successfully.`})
-
+    res
+      .status(200)
+      .json({ msg: `Task with Id ${id} is updated successfully.` });
   } catch (error) {
-    console.error("Error Fetching tasks:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    console.error("Error updating tasks:", error);
+    res.status(500).json({ error: error.message });
   }
 };
 
