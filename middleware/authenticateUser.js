@@ -19,21 +19,20 @@ const authenticateUser = async (req, res, next) => {
     });
   }
 
-
-  const { username } = verifiedToken;
-
-   try {
-     const user = await Users.findOne({ where: { username: username } });
-     if (!user) {
-       return res.status(401).json({
-         error: "This token is not authorized to access the given resource",
-       });
-     }
-     next();
-   } catch (error) {
-     console.error("Error authenticating user:", error);
-     return res.status(500).json({ error: "Internal server error" });
-   }
+  try {
+    const { username } = verifiedToken;
+    const user = await Users.findOne({ where: { username: username } });
+    if (!user) {
+      return res.status(401).json({
+        error: "This token is not authorized to access the given resource",
+      });
+    }
+    req.user = user;
+    next();
+  } catch (error) {
+    console.error("Error authenticating user:", error);
+    return res.status(500).json({ error: "internal server error" });
+  }
 };
 
 export default authenticateUser;

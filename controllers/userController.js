@@ -3,9 +3,8 @@ import Users from "../models/users.model.js";
 
 const createAccount = async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { username, password, role } = req.body;
 
-  
     // Check if the username already exists
     const existingUser = await Users.findOne({ where: { username: username } });
 
@@ -17,12 +16,12 @@ const createAccount = async (req, res) => {
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    await Users.create({username,hashedPassword})
+    await Users.create({ username, hashedPassword, role });
 
-    res.status(201).json({ message: "Account created successfully" });
+    return res.status(201).json({ message: "Account created successfully" });
   } catch (error) {
     console.error("Error creating account:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 };
 

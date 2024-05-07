@@ -34,11 +34,11 @@ const createAcessTokens = async (req, res) => {
     });
 
     // Return the access token to the client
-    res.status(200).json({ accessToken });
+    return res.status(200).json({ accessToken });
   }
   catch (error) {
     console.error("Error logging in:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 };
 

@@ -17,6 +17,11 @@ const Users = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    role: {
+      type: DataTypes.ENUM("Admin", "Member"),
+      defaultValue: "Member",
+      allowNull: false,
+    },
   },
   {
     timestamps: true,

@@ -8,13 +8,14 @@ import {
   getTaskById,
   updateTaskById,
 } from "../controllers/taskController.js";
+import verifyIsAdmin from "../middleware/verifyAdmin.js";
 
 const taskRouter = express.Router();
 
-taskRouter.post("/", authenticateUser, createTask);
+taskRouter.post("/", authenticateUser, verifyIsAdmin, createTask);
 taskRouter.get("/", authenticateUser, getAllTasks);
 taskRouter.get("/:id", authenticateUser, getTaskById);
-taskRouter.put("/:id",authenticateUser,updateTaskById)
-taskRouter.delete("/:id", authenticateUser, deleteTaskById);
+taskRouter.put("/:id", authenticateUser, verifyIsAdmin, updateTaskById);
+taskRouter.delete("/:id", authenticateUser, verifyIsAdmin, deleteTaskById);
 
 export default taskRouter;

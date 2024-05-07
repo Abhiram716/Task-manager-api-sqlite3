@@ -1,12 +1,8 @@
-import cors from "cors";
 import express from "express";
-import dotenv from "dotenv";
 
 import { sequelize } from "./db.js";
-import userRouter from "./routes/user.router.js";
+import authRouter from "./routes/auth.router.js";
 import taskRouter from "./routes/task.router.js";
-
-dotenv.config();
 
 const app = express();
 
@@ -18,7 +14,7 @@ sequelize.sync().then(() => {
   console.log("db is ready");
 });
 
-app.use("/user", userRouter);
+app.use("/auth", authRouter);
 app.use("/tasks", taskRouter);
 
 app.get("/", async (req, res) => {
