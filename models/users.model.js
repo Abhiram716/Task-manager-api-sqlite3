@@ -1,8 +1,9 @@
-import { DataTypes, sequelize } from "../db.js";
-import Tasks from "./tasks.model.js";
+import { DataTypes, sequelize } from '../db.js';
+
+import Tasks from './tasks.model.js';
 
 const Users = sequelize.define(
-  "Users",
+  'Users',
   {
     id: {
       type: DataTypes.INTEGER,
@@ -18,17 +19,15 @@ const Users = sequelize.define(
       allowNull: false,
     },
     role: {
-      type: DataTypes.ENUM("Admin", "Member"),
-      defaultValue: "Member",
+      type: DataTypes.ENUM('Admin', 'Member'),
+      defaultValue: 'Member',
       allowNull: false,
     },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true },
 );
 
-Users.hasMany(Tasks, { foreignKey: "assignee_id" });
-Tasks.belongsTo(Users, { foreignKey: "assignee_id" });
+Users.hasMany(Tasks, { foreignKey: 'assigneeId' });
+Tasks.belongsTo(Users, { foreignKey: 'assigneeId' });
 
 export default Users;

@@ -26,16 +26,10 @@
     ],
     "eslint-comments/disable-enable-pair": "off",
     "no-underscore-dangle": "off",
-    "sort-keys": [
-      "error",
-      "asc",
-      {
-        "natural": true
-      }
-    ],
     "import/extensions": [
       "error",
       "always"
-    ]
+    ],
+    "object-curly-newline": "off"
   }
 }

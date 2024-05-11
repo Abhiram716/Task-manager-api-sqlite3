@@ -1,7 +1,7 @@
-import { DataTypes, sequelize } from "../db.js";
+import { DataTypes, sequelize } from '../db.js';
 
 const Tasks = sequelize.define(
-  "Task",
+  'Task',
   {
     id: {
       type: DataTypes.INTEGER,
@@ -12,24 +12,20 @@ const Tasks = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    description: {
-      type: DataTypes.TEXT,
-    },
+    description: { type: DataTypes.TEXT },
     status: {
-      type: DataTypes.ENUM("pending", "inprogress", "unassigned", "completed"),
-      defaultValue: "unassigned",
+      type: DataTypes.ENUM('pending', 'inprogress', 'unassigned', 'completed'),
+      defaultValue: 'unassigned',
     },
-    assignee_id: {
+    assigneeId: {
       type: DataTypes.INTEGER,
       references: {
         model: 'Users',
-        key: "id",
+        key: 'id',
       },
     },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true },
 );
 
 export default Tasks;

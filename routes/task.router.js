@@ -1,21 +1,34 @@
-import express from "express";
+import express from 'express';
 
-import authenticateUser from "../middleware/authenticateUser.js";
 import {
   createTask,
   deleteTaskById,
   getAllTasks,
   getTaskById,
   updateTaskById,
-} from "../controllers/taskController.js";
-import verifyIsAdmin from "../middleware/verifyAdmin.js";
+} from '../controllers/taskController.js';
+import authenticateUser from '../middleware/authenticateUser.js';
+import verifyIsAdmin from '../middleware/verifyAdmin.js';
+import { verifyToken } from '../middleware/verifyToken.js';
 
 const taskRouter = express.Router();
 
-taskRouter.post("/", authenticateUser, verifyIsAdmin, createTask);
-taskRouter.get("/", authenticateUser, getAllTasks);
-taskRouter.get("/:id", authenticateUser, getTaskById);
-taskRouter.put("/:id", authenticateUser, verifyIsAdmin, updateTaskById);
-taskRouter.delete("/:id", authenticateUser, verifyIsAdmin, deleteTaskById);
+taskRouter.post('/', verifyToken, authenticateUser, verifyIsAdmin, createTask);
+taskRouter.get('/', verifyToken, authenticateUser, getAllTasks);
+taskRouter.get('/:id', verifyToken, authenticateUser, getTaskById);
+taskRouter.put(
+  '/:id',
+  verifyToken,
+  authenticateUser,
+  verifyIsAdmin,
+  updateTaskById,
+);
+taskRouter.delete(
+  '/:id',
+  verifyToken,
+  authenticateUser,
+  verifyIsAdmin,
+  deleteTaskById,
+);
 
 export default taskRouter;

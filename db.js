@@ -1,9 +1,10 @@
-import { Sequelize, DataTypes } from "sequelize";
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
+import { Sequelize, DataTypes } from 'sequelize';
+
 dotenv.config();
 
 const sequelize = new Sequelize({
-  dialect: "sqlite",
+  dialect: 'sqlite',
   storage: process.env.STORAGE_PATH,
 });
 
