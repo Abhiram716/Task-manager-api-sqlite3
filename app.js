@@ -21,4 +21,4 @@ app.get('/', async (req, res) => {
   res.send('Hello world');
 });
 
-app.listen(process.env.PORT);
+export default app;
