@@ -1,5 +1,16 @@
 node_modules
+
+# rest client testing tool
 test.rest
+
+# db for development environiment 
 database.sqlite
+
+# db for testing environiment
 test_database.sqlite
+
+# environiment variables
 .env
+
+# unit test coverage
+coverage
