@@ -12,7 +12,7 @@ const createAcessTokens = async (req, res) => {
 
     // If account not found, return error
     if (!user) {
-      return res.status(401).json({ error: 'Account not found' });
+      return res.status(404).json({ error: 'Account not found' });
     }
 
     // Compare the provided password with the hashed password in the database
@@ -29,8 +29,10 @@ const createAcessTokens = async (req, res) => {
     };
 
     // Generate the access token
-    const accessToken = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '365d' });
-
+    const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: '365d',
+    });
+    
     // Return the access token to the client
     return res.status(200).json({ accessToken });
   } catch (error) {
