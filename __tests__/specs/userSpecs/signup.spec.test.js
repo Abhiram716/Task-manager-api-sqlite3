@@ -12,16 +12,19 @@ import supertest from 'supertest';
 
 import app from '../../../app.js';
 import Users from '../../../models/users.model.js';
+import { sequelize } from '../../../db.js';
 
 describe('Users', () => {
   let superTestApp;
 
   beforeAll(() => {
     superTestApp = supertest(app);
+    return sequelize.sync();
   });
 
   beforeEach(async () => {
-    await Users.sync({ force: true });
+    // await Users.sync({ force: true });
+    return Users.destroy({ truncate: true });
   });
 
   describe('User registration', () => {
