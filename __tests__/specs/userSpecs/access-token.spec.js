@@ -57,7 +57,7 @@ describe('Access Tokens', () => {
     describe('Given Valid username and valid password', () => {
       beforeAll(() => {
         let accessToken;
-        let mockUser = {
+        const mockUser = {
           dataValues: {
             id: faker.string.uuid(),
             username: faker.person.fullName(),
