@@ -16,7 +16,10 @@ const createAcessTokens = async (req, res) => {
     }
 
     // Compare the provided password with the hashed password in the database
-    const isPasswordValid = await bcrypt.compare(password, user.hashedPassword);
+    const isPasswordValid = await bcrypt.compare(
+      password,
+      user.dataValues.hashedPassword,
+    );
     if (!isPasswordValid) {
       return res.status(401).json({ error: 'Invalid password' });
     }
@@ -32,7 +35,7 @@ const createAcessTokens = async (req, res) => {
     const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: '365d',
     });
-    
+
     // Return the access token to the client
     return res.status(200).json({ accessToken });
   } catch (error) {
